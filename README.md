@@ -21,3 +21,5 @@ Or by downloading the ZIP archive.
 Then make it executable
     
     chmod 755 wherethef.py
+
+Also, will create a setup.py script but for the meantime, change the cp_files  directory to the pwd you will be using the tool out of. Script will not find any files if you dont.
