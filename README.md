@@ -22,4 +22,4 @@ Then make it executable
     
     chmod 755 wherethef.py
 
-Also, will create a setup.py script but for the meantime, change the cp_files  directory to the pwd you will be using the tool out of. Script will not find any files if you dont.
+Also, will create a setup.py script but for the meantime, at line 77, change the cp_files  directory to the pwd you will be using the tool out of. Script will not find any files if you dont.
