@@ -36,6 +36,11 @@ def splashback():
     print('                                                                Have you been saving everything within /root/Documents?                                             ')
     return 0
 
+def purge():
+    #Purges the working directory
+    clean_up = 'rm transfer_dir/*'
+    os.system(clean_up)
+
 def find():
     #Finds all the files saved from within a particular timeframe
     print()
@@ -82,6 +87,8 @@ def opendocs():
     os.system(give_me_my_files)
 
 splashback()
+
+purge()
 
 find()
 
