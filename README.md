@@ -15,5 +15,9 @@ This software is free. You can use it under the terms of GPLv3, see LICENSE.
  You can download wherethef.py by cloning this git repository:
 
     git clone https://github.com/Big7asty/wherethef
-
+    
 Or by downloading the ZIP archive.
+
+Then make it executable
+    
+    chmod 755 wherethef.py
