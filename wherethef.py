@@ -33,7 +33,8 @@ def splashback():
     print('                %@@&                                                                                                                                                ')
     print('                                                                                                                                                                    ')
     print('                                                                                                                                                                    ')
-    print('                                                                Have you been saving everything within /root/Documents?                                             ')
+    print('                                                                                      A Big7asty original                                                           ')
+    print('                                                                   Have you been saving everything within /root/Documents?                                          ')            
     return 0
 
 def purge():
