@@ -4,7 +4,7 @@
 
 # IMPORTANT!
 
-For this tool to be effective, good disipline is required in that you save/pipe ALL evidence, documentation, tool output to /root/Documentation. It will not find any files outside of this directory
+For this tool to be effective, good disipline is required in that you save/pipe ALL evidence, documentation, tool output to the directory of your choosing as defined in the config file. It will not find any files outside of this directory.
 
 # License
 
@@ -22,4 +22,4 @@ Then make it executable
     
     chmod 755 wherethef.py
 
-Also, will create a setup.py script but for the meantime, at line 77, change the cp_files  directory to the pwd you will be using the tool out of. Script will not find any files if you dont.
+Don't forget to define directory locations within the config file.
