@@ -23,3 +23,7 @@ Then make it executable
     chmod 755 wherethef.py
 
 Don't forget to define directory locations within the config file.
+
+# To Do
+
+- Add argparse to define timeframe to the last 24 hours and skip user input defining timeframe
