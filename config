@@ -1,0 +1,13 @@
+#############################
+# Config file for wherethef #
+#############################
+
+[DirectoryLocations]
+
+# Directory to search through
+DirSearch = /root/Documents
+
+# Location of wherethef tool
+#SaveLocation = /root/lab
+#SaveLocation = /root/software/scripts
+SaveLocation = /root/Downloads
