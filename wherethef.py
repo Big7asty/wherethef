@@ -50,31 +50,31 @@ def splashback():
 def purge():
     #Purges the working directory
     print()
-    print('Do you need any of the files in transfer_dir? (They will be deleted)')
+    print(' [!] Do you need any of the files in transfer_dir? (They will be deleted!)')
     print()
-    rm_files = str(input('y or n: '))
+    rm_files = str(input(' [+] y or n: '))
     if rm_files == "y":
-        print('QUITTING')
+        print(' [!] QUITTING')
         sys.exit()
     elif rm_files == "n":
-        clean_up = 'rm transfer_dir/*'
+        clean_up = 'rm -rf transfer_dir/*'
         os.system(clean_up)
     else:
-        print('Invalid input, QUITTING')
+        print(' [!] Invalid input, QUITTING')
         sys.exit()
     return 0
 
 def find():
     #Finds all the files saved from within a particular timeframe
     print()
-    print('Start date?')
+    print(' [*] Start date?')
     print()
-    print('        i.e. 2001230900 for 9am on the 23rd of January, 2020')
+    print(' [*] i.e. 2001230900 for 9am on the 23rd of January, 2020')
     from_date = input()
     print()
-    print('End date?')
+    print(' [*] End date?')
     print()
-    print('        i.e. 2001231700 for 5pm on the 23rd of January, 2020')
+    print(' [*] i.e. 2001231700 for 5pm on the 23rd of January, 2020')
     to_date = input()
     find_start = 'touch -t ' + str(from_date) + ' /tmp/t1'
     find_end = 'touch -t ' + str(to_date) + ' /tmp/t2'
@@ -84,7 +84,7 @@ def find():
     os.system(find_show)
     return 0
 
-def movedocs():
+def moveDocs():
     #Brings the files listed in /tmp/ to the pwd
     working_file = 'cat /tmp/transfer > yourfiles.txt'
     os.system(working_file)
@@ -95,17 +95,25 @@ def movedocs():
         while counter < len(contents):
             file = contents[counter]
             cp_files = 'cp ' + str(file) + ' ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
-            #print(cp_files)
             os.system(cp_files)
             counter += 1
     return 0
 
-def opendocs():
+def cpPics():
+    #Copy's screenshot's default format .png files from /root/Documents/05_fieldwork/screenshots/ and /root/Pictures/
+    cp_pics1 = 'cp ' + str(DirSearch) + '/05_fieldwork/screenshots/*.png ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
+    cp_pics2 = 'cp /root/Pictures/*.png ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
+    os.system(cp_pics1)
+    os.system(cp_pics2)
+    return 0
+
+def openDocs():
     #Clean up pwd and opens File Manager for transfer
     clean_up = 'rm yourfiles.txt'
     os.system(clean_up)
     give_me_my_files = 'xdg-open transfer_dir'
     os.system(give_me_my_files)
+    return 0
 
 splashback()
 
@@ -113,12 +121,14 @@ purge()
 
 find()
 
-movedocs()
+moveDocs()
 
-opendocs()
+cpPics()
+
+openDocs()
 
 print()
-print('--------------------------------------------------------------------')
-print(' If you aren\'t getting the files you expect, check the config file ')
-print(' and confirm the file paths are correct.                            ')
-print('--------------------------------------------------------------------')
+print('------------------------------------------------------------------------')
+print(' [*] If you aren\'t getting the files you expect, check the config file ')
+print(' [*] and confirm the file paths are correct.                            ')
+print('------------------------------------------------------------------------')
