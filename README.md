@@ -24,6 +24,8 @@ Then make it executable
 
 Don't forget to define directory locations within the config file.
 
+If your system clock is out, this will effect the time search function of the tool. wherethef.py will pull up the current system time for you.
+
 # To Do
 
 - Add argparse to define timeframe to the last 24 hours and skip user input defining timeframe
