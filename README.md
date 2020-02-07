@@ -22,7 +22,7 @@ Or by downloading the ZIP archive.
 
 Then make it executable
     
-    chmod 755 wherethef.py
+    chmod +x wherethef.py
 
 Don't forget to define directory locations within the config file.
 
