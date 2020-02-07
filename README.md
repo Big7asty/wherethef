@@ -5,6 +5,7 @@
 # IMPORTANT!
 
 For this tool to be effective, good disipline is required in that you save/pipe ALL evidence, documentation, tool output to the directory of your choosing as defined in the config file. It will not find any files outside of this directory.
+In addition, if your system clock is out, this will effect the time search function of the tool. wherethef.py will pull up the current system time for you.
 
 # License
 
@@ -23,8 +24,6 @@ Then make it executable
     chmod 755 wherethef.py
 
 Don't forget to define directory locations within the config file.
-
-If your system clock is out, this will effect the time search function of the tool. wherethef.py will pull up the current system time for you.
 
 # To Do
 
