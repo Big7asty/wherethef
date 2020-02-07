@@ -1,6 +1,6 @@
 # Wherethef.py
 
-'wherethef.py' is an open source administration tool for pulling all files within a timeframe you specify into a new directory. The use case for this tool is to make penetration tests/vulnerability assessment data transfer a little easier.
+'wherethef.py' is an open source administration tool for pulling all files within a timeframe you specify into a new directory. The use case for this tool is to make penetration tests/vulnerability assessment end of day data transfer a little easier.
 
 # IMPORTANT!
 
@@ -20,7 +20,11 @@ This software is free. You can use it under the terms of GPLv3, see LICENSE.
     
 Or by downloading the ZIP archive.
 
-Then make it executable
+Unzip the file with;
+
+    unzip wherethef-master.zip
+
+and make it executable;
     
     chmod +x wherethef.py
 
