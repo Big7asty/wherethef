@@ -5,6 +5,7 @@ import sys
 import time
 import datetime
 import configparser
+from termcolor import colored
 
 """Load the configuration file"""
 from configparser import ConfigParser
@@ -13,6 +14,12 @@ config.read('config')
 
 DirSearch = config.get('DirectoryLocations', 'DirSearch')
 SaveLocation = config.get('DirectoryLocations', 'SaveLocation')
+
+"""Colour settings"""
+red = lambda text: '\033[0;31m' + text + '\033[0m'
+green = lambda text: '\033[0;32m' + text + '\033[0m'
+yellow = lambda text: '\033[0;33m' + text + '\033[0m'
+cyan = lambda text: '\033[0;36m' + text + '\033[0m'
 
 """------------------------------------------------------------"""
 
@@ -32,13 +39,13 @@ def main():
 
     print()
     print('------------------------------------------------------------------------')
-    print(' [*] If you aren\'t getting the files you expect, check the config file ')
-    print(' [*] and confirm the file paths are correct.                            ')
+    print(yellow(' [*] If you aren\'t getting the files you expect, check the config file '))
+    print(yellow(' [*] and confirm the file paths are correct.                            '))
     print('------------------------------------------------------------------------')
 
 def splashback():
     """Cool splashback"""
-    print("""                                                                                                                                                                  
+    print(cyan("""                                                                                                                                                                  
                                                                                                                                                                      ,#*       
                                                                                                                                                                   @@@%&@@      
                                                                                                                                                            #@@  /@@   *@@      
@@ -67,7 +74,7 @@ def splashback():
                                                                                                                                                                                
                                                                                                                                                                                
                                                                                                  A Big7asty original                                                           
-                                                                   Have you been saving everything you need within the directory you are searching?                            """)
+                                                                   Have you been saving everything you need within the directory you are searching?                            """))
     return 0
 
 def purge():
@@ -78,31 +85,31 @@ def purge():
     print('-------------------------------')
     os.system(date)
     print('-------------------------------')
-    print('  [!] NOTE! If the system clock is out, files you are searching would have been saved against this time.\n')
-    print('  [!] Do you need any of the files in transfer_dir? (They will be deleted!)\n')
+    print(red('  [!] NOTE! If the system clock is out, files you are searching would have been saved against this time.\n'))
+    print(red('  [!] Do you need any of the files in transfer_dir? (They will be deleted!)\n'))
     rm_files = str(input('  [+] y or n: ')).lower()
     if rm_files == "y":
-        print('  [!] QUITTING')
+        print(red('  [!] QUITTING'))
         sys.exit()
     elif rm_files == "n":
         clean_up = 'rm -rf transfer_dir/*'
         os.system(clean_up)
     else:
-        print('  [!] Invalid input, QUITTING')
+        print(red('  [!] Invalid input, QUITTING'))
         sys.exit()
     return 0
 
 def find():
     """Finds all the files saved from within a particular timeframe"""
     print()
-    print('  [*] Start date?')
+    print(yellow('  [*] Start date?'))
+    print(yellow('  [*] i.e. 2001230900 for 9am on the 23rd of January, 2020'))
     print()
-    print('  [*] i.e. 2001230900 for 9am on the 23rd of January, 2020')
     from_date = input()
     print()
-    print('  [*] End date?')
+    print(yellow('  [*] End date?'))
+    print(yellow('  [*] i.e. 2001231700 for 5pm on the 23rd of January, 2020'))
     print()
-    print('  [*] i.e. 2001231700 for 5pm on the 23rd of January, 2020')
     to_date = input()
     find_start = 'touch -t ' + str(from_date) + ' /tmp/t1'
     find_end = 'touch -t ' + str(to_date) + ' /tmp/t2'
