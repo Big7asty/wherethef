@@ -5,35 +5,41 @@ import sys
 import time
 import datetime
 import configparser
+import argparse
 from termcolor import colored
 
-"""Load the configuration file"""
+""" Load the configuration file """
 from configparser import ConfigParser
 config = ConfigParser()
 config.read('config')
 
 DirSearch = config.get('DirectoryLocations', 'DirSearch')
 SaveLocation = config.get('DirectoryLocations', 'SaveLocation')
+LookBack = config.get('TimeSettings', 'Lookback')
 
-"""Colour settings"""
+""" Load colour settings """
 red = lambda text: '\033[0;31m' + text + '\033[0m'
 green = lambda text: '\033[0;32m' + text + '\033[0m'
 yellow = lambda text: '\033[0;33m' + text + '\033[0m'
 cyan = lambda text: '\033[0;36m' + text + '\033[0m'
 
-"""------------------------------------------------------------"""
-
 def main():
-    """Run main"""
+    """ Run main """
     splashback()
 
-    purge()
+    parser = argparse.ArgumentParser(description = 'wherethef - Evidence consolidation tool. When run without arguements, lookup timeframe will be default value in config file.')
+    parser.add_argument('-t', '--timeframe', action='store_true', help='Define a from and to timeframe to search')
+    args = parser.parse_args()
+    if args.timeframe:
+        purge()
 
-    find()
+        customFind()
+    else:
+        purge()
+
+        defaultFind()
 
     moveDocs()
-
-    cpPics()
 
     openDocs()
 
@@ -44,7 +50,6 @@ def main():
     print('------------------------------------------------------------------------')
 
 def splashback():
-    """Cool splashback"""
     print(cyan("""                                                                                                                                                                  
                                                                                                                                                                      ,#*       
                                                                                                                                                                   @@@%&@@      
@@ -78,7 +83,7 @@ def splashback():
     return 0
 
 def purge():
-    """Purges the working directory"""
+    """ Purges the working directory and cleans up /tmp files """
     print()
     print('The system time is:')
     date = 'date'
@@ -93,13 +98,35 @@ def purge():
         sys.exit()
     elif rm_files == "n":
         clean_up = 'rm -rf transfer_dir/*'
+        clean_up_tmp = 'rm /tmp/t1 && rm /tmp/t2 && rm /tmp/t1_command && rm /tmp/t2_command && rm /tmp/transfer'
         os.system(clean_up)
+        os.system(clean_up_tmp)
     else:
         print(red('  [!] Invalid input, QUITTING'))
         sys.exit()
     return 0
 
-def find():
+def defaultFind():
+    """ Runs the find function against the defined lookback period as assigned in the config file """
+    from_date_command = 'date -d \'' + str(LookBack) + '\' +\"%y-%m-%d-%R\" | sed \'s/-//g\' | sed \'s/://g\' > /tmp/t1_command'
+    to_date_command = 'date +\"%y-%m-%d-%R\" | sed \'s/-//g\' | sed \'s/://g\' > /tmp/t2_command'
+    os.system(from_date_command)
+    os.system(to_date_command)
+    with open('/tmp/t1_command', 'r+') as f:
+        from_date_list = [x.strip() for x in f.readlines()]
+    with open('/tmp/t2_command', 'r+') as g:
+        to_date_list = [c.strip() for c in g.readlines()]
+    from_date = str(from_date_list)[2:-2]
+    to_date = str(to_date_list)[2:-2]
+    find_start = 'touch -t ' + str(from_date) + ' /tmp/t1'
+    find_end = 'touch -t ' + str(to_date) + ' /tmp/t2'
+    find_show = 'find ' + str(DirSearch) + ' -newer /tmp/t1 -and -not -newer /tmp/t2 > /tmp/transfer'
+    os.system(find_start)
+    os.system(find_end)
+    os.system(find_show)
+    return 0
+
+def customFind():
     """Finds all the files saved from within a particular timeframe"""
     print()
     print(yellow('  [*] Start date?'))
@@ -120,30 +147,24 @@ def find():
     return 0
 
 def moveDocs():
-    """Brings the files listed in /tmp/ to the pwd"""
+    """ Brings the files listed in /tmp/ to the pwd """
     working_file = 'cat /tmp/transfer > yourfiles.txt'
     os.system(working_file)
-    """Reads the listed file paths and consolidates them into one directory"""
+    """ Reads the listed file paths and consolidates them into one directory """
     with open('yourfiles.txt', 'r+') as f:
         contents = [x.strip() for x in f.readlines()]
         counter = 0
         while counter < len(contents):
             file = contents[counter]
             cp_files = 'cp ' + str(file) + ' ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
+            cp_pics = 'cp ' + str(file) + '/*.png ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
             os.system(cp_files)
+            os.system(cp_pics)
             counter += 1
     return 0
 
-def cpPics():
-    """Copy's screenshot's default format .png files from /root/Documents/05_fieldwork/screenshots/ and /root/Pictures/"""
-    cp_pics1 = 'cp ' + str(DirSearch) + '/*.png ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
-    cp_pics2 = 'cp /root/Pictures/*.png ' + str(SaveLocation) + '/wherethef-master/transfer_dir > /dev/null 2>&1'
-    os.system(cp_pics1)
-    os.system(cp_pics2)
-    return 0
-
 def openDocs():
-    """Clean up pwd and opens File Manager for transfer"""
+    """ Clean up pwd and opens File Manager for transfer """
     clean_up = 'rm yourfiles.txt'
     os.system(clean_up)
     give_me_my_files = 'xdg-open transfer_dir'
