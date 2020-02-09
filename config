@@ -5,9 +5,17 @@
 [DirectoryLocations]
 
 # Directory to search through
-DirSearch = /root/Documents
+# ---------------------------
+DirSearch = /root/Documents/
 
 # Location of wherethef tool
+# --------------------------
 #SaveLocation = /root/lab
 #SaveLocation = /root/software/scripts
-SaveLocation = /root/Downloads
+#SaveLocation = /root/Downloads
+SaveLocation = /root/software/
+
+[TimeSettings]
+
+# Default lookback time for default find function, syntax format example "24 hours ago" 
+LookBack = 18 hours ago
