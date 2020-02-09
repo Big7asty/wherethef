@@ -166,8 +166,8 @@ def moveDocs():
 def openDocs():
     """ Clean up pwd and opens File Manager for transfer """
     clean_up = 'rm yourfiles.txt'
-    os.system(clean_up)
     give_me_my_files = 'xdg-open transfer_dir'
+    os.system(clean_up)
     os.system(give_me_my_files)
     return 0
 
