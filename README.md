@@ -1,6 +1,6 @@
 # Wherethef.py
 
-'wherethef.py' is an open source administration tool for pulling all files within a timeframe you specify into a new directory. The use case for this tool is to make penetration tests/vulnerability assessment end of day data transfer a little easier.
+'wherethef.py' is an open source administration tool for copying all files within a timeframe you specify into a new directory. The use case for this tool is to make penetration tests/vulnerability assessment end of day data transfer a little easier.
 
 # IMPORTANT!
 
@@ -29,7 +29,3 @@ and make it executable;
     chmod +x wherethef.py
 
 Don't forget to define directory locations within the config file.
-
-# To Do
-
-- Add argparse to define timeframe to the last 24 hours and skip user input defining timeframe
