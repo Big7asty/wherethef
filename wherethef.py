@@ -98,7 +98,7 @@ def purge():
         sys.exit()
     elif rm_files == "n":
         clean_up = 'rm -rf transfer_dir/*'
-        clean_up_tmp = 'rm /tmp/t1 && rm /tmp/t2 && rm /tmp/t1_command && rm /tmp/t2_command && rm /tmp/transfer'
+        clean_up_tmp = 'rm /tmp/t1 > /dev/null 2>&1 && rm /tmp/t2 > /dev/null 2>&1 && rm /tmp/t1_command > /dev/null 2>&1 && rm /tmp/t2_command > /dev/null 2>&1 && rm /tmp/transfer > /dev/null 2>&1'
         os.system(clean_up)
         os.system(clean_up_tmp)
     else:
